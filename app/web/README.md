@@ -1,7 +1,9 @@
 # Transformer web client (PWA)
 
-A static, dependency-free chat client. Deploy anywhere static files are served
-(Netlify, GitHub Pages, a CDN), or open `index.html` directly.
+**Live:** https://samratbarman1013-commits.github.io/transformer/
+
+A static, dependency-free chat client, auto-deployed to GitHub Pages on every
+push that touches `app/web/` (see `.github/workflows/pages.yml`).
 
 ## Modes
 
@@ -20,9 +22,9 @@ is stateless per request.
 
 ## Install as an app (Android / desktop)
 
-Serve over HTTPS (or localhost), then: Chrome → menu → **Install app**. The
-manifest + service worker make it a standalone, offline-capable installable
-app — this is the PWA path described in `app/android/README.md`.
+Open the live URL, then: Chrome → menu → **Install app**. The manifest +
+service worker make it a standalone, offline-capable installable app — this
+is the PWA path described in `app/android/README.md`.
 
 ## Files
 
