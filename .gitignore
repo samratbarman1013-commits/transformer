@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Training artifacts
+out/
+*.pt
+*.bin
+
+# Data artifacts (keep smoke.txt and READMEs, ignore downloaded/generated corpora)
+data/corpus*
+data/tokenizer*.json
+data/*.arrow
+
+# Node / web build
+node_modules/
+app/web/icons/*.tmp
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

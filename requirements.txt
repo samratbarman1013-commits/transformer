@@ -1,0 +1,5 @@
+torch>=2.1
+tokenizers>=0.15
+pyyaml>=6.0
+fastapi>=0.110
+uvicorn>=0.29

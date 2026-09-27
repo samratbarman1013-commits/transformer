@@ -1,0 +1,32 @@
+# ~1M-parameter prototype.
+#
+# Purpose: validate the full pipeline (architecture, training loop, tools, apps),
+# NOT to be smart. Budget math (tied embeddings, no bias):
+#   embeddings: vocab * n_embd            = 2048 * 128 = 262,144
+#   per layer:  4*n^2 (attn) + 8*n^2 (mlp) = 196,608 ; x 4 layers = 786,432
+#   total ~ 1.05M
+name: 1m-prototype
+
+model:
+  n_layer: 4
+  n_embd: 128
+  n_head: 4
+  block_size: 256
+  vocab_size: 2048
+  dropout: 0.0
+  bias: false
+
+train:
+  max_iters: 5000
+  batch_size: 32
+  learning_rate: 3.0e-4
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  grad_clip: 1.0
+  warmup_iters: 100
+  lr_decay_iters: 5000
+  min_lr: 3.0e-5
+  eval_interval: 250
+  eval_iters: 20
+  seed: 1337

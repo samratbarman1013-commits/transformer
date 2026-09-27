@@ -1,0 +1,35 @@
+# ~500M target model. Same code as the 1M prototype — only numbers change.
+# Budget math (tied embeddings, no bias):
+#   embeddings: 32768 * 1152                ~ 37.7M
+#   per layer:  12 * 1152^2                 ~ 15.9M ; x 30 layers ~ 478M
+#   total ~ 516M
+#
+# Honest requirements before training this (see docs/SCALING.md):
+#   - tens of billions of tokens of curated data
+#   - multi-GPU training (FSDP/DDP), mixed precision
+#   - days-to-weeks of compute; a consumer GPU / free Colab will NOT do
+name: 500m
+
+model:
+  n_layer: 30
+  n_embd: 1152
+  n_head: 18          # head dim 64
+  block_size: 1024
+  vocab_size: 32768
+  dropout: 0.0
+  bias: false
+
+train:
+  max_iters: 200000
+  batch_size: 8       # per GPU; global batch scales with world size
+  learning_rate: 3.0e-4
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  grad_clip: 1.0
+  warmup_iters: 2000
+  lr_decay_iters: 200000
+  min_lr: 3.0e-5
+  eval_interval: 1000
+  eval_iters: 50
+  seed: 1337
