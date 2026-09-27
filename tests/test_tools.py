@@ -1,6 +1,6 @@
 """Tool registry and tool behavior tests (no heavy deps needed)."""
-from tools.registry import ToolRegistry, ToolSpec
 from tools import code_runner, memory, web_search
+from tools.registry import ToolRegistry, ToolSpec
 
 
 def test_register_and_execute():

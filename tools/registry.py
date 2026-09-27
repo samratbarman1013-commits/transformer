@@ -10,8 +10,9 @@ agent loop feeds back as an observation.
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -60,7 +61,7 @@ class ToolRegistry:
             return ToolResult(ok=False, error=f"{name}: missing required arguments: {', '.join(missing)}")
         try:
             return ToolResult(ok=True, data=fn(**(arguments or {})))
-        except Exception as exc:  # a failing tool is an observation, not a crash
+        except Exception as exc:  # noqa: BLE001 — a failing tool is an observation, not a crash
             return ToolResult(ok=False, error=f"{name} failed: {exc}")
 
 

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import time
 import uuid
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -25,7 +25,7 @@ class ChatCompletionRequest(BaseModel):
     stream: bool = False
     tools_enabled: bool = True
     # Accepted for compatibility, currently ignored by the demo backend:
-    tools: Optional[list] = None
+    tools: list | None = None
 
 
 class Usage(BaseModel):
@@ -58,14 +58,14 @@ class ChatCompletionResponse(BaseModel):
 
 
 class Delta(BaseModel):
-    role: Optional[str] = None
-    content: Optional[str] = None
+    role: str | None = None
+    content: str | None = None
 
 
 class StreamChoice(BaseModel):
     index: int = 0
     delta: Delta
-    finish_reason: Optional[str] = None
+    finish_reason: str | None = None
 
 
 class ChatCompletionChunk(BaseModel):
@@ -76,7 +76,7 @@ class ChatCompletionChunk(BaseModel):
     choices: list[StreamChoice]
 
     @staticmethod
-    def start(model: str) -> "ChatCompletionChunk":
+    def start(model: str) -> ChatCompletionChunk:
         return ChatCompletionChunk(
             id=f"chatcmpl-{uuid.uuid4().hex[:12]}",
             model=model,

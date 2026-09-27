@@ -58,6 +58,7 @@ def run_python(code: str, timeout: int = 5) -> dict:
                 capture_output=True,
                 text=True,
                 timeout=timeout,
+                check=False,  # the snippet's exit status is reported, not raised
             )
             return {"ok": proc.returncode == 0, "stdout": proc.stdout[:4000], "stderr": proc.stderr[:4000]}
         except subprocess.TimeoutExpired:

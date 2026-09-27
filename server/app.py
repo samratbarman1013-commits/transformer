@@ -14,6 +14,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
+from tools.registry import default_registry
+
 from .agent import DemoBackend, ModelBackend, run_agent
 from .schemas import (
     ChatCompletionChunk,
@@ -21,11 +23,10 @@ from .schemas import (
     ChatCompletionResponse,
     Choice,
     ChoiceMessage,
-    StreamChoice,
     Delta,
+    StreamChoice,
     Usage,
 )
-from tools.registry import default_registry
 
 app = FastAPI(title="Transformer", version="0.1.0")
 
@@ -45,7 +46,7 @@ registry = default_registry()
 _CKPT_DIR = os.environ.get("TRANSFORMER_CKPT_DIR", "out/1m-prototype")
 try:
     backend = ModelBackend(_CKPT_DIR)
-except Exception:  # no checkpoint (or torch missing) -> demo mode, not a crash
+except Exception:  # noqa: BLE001 — no checkpoint (or torch missing) -> demo mode, not a crash
     backend = DemoBackend()
 
 

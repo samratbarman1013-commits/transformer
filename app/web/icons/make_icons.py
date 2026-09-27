@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate PWA icons (gradient rounded square with a white 'T')."""
 from PIL import Image, ImageDraw
 

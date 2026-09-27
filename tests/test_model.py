@@ -3,8 +3,8 @@ import pytest
 
 torch = pytest.importorskip("torch")
 
-from model.config import ModelConfig, estimate_params  # noqa: E402
-from model.transformer import GPT  # noqa: E402
+from model.config import ModelConfig, estimate_params
+from model.transformer import GPT
 
 PROTO = ModelConfig(n_layer=4, n_embd=128, n_head=4, block_size=256, vocab_size=2048)
 

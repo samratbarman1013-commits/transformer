@@ -4,6 +4,11 @@ A small, open-source, end-to-end LLM assistant: a GPT-style language model train
 scratch, a tool-calling agent loop, an OpenAI-compatible API server, and a
 privacy-first web/PWA client.
 
+**Live app:** https://samratbarman1013-commits.github.io/transformer/
+
+[![CI](https://github.com/samratbarman1013-commits/transformer/actions/workflows/ci.yml/badge.svg)](https://github.com/samratbarman1013-commits/transformer/actions/workflows/ci.yml)
+[![Deploy](https://github.com/samratbarman1013-commits/transformer/actions/workflows/pages.yml/badge.svg)](https://github.com/samratbarman1013-commits/transformer/actions/workflows/pages.yml)
+
 **Status: Phase 1 (prototype).** The 1M-parameter prototype exists to validate the full
 pipeline — architecture, training loop, tool system, apps — not to be smart yet.
 
@@ -22,8 +27,8 @@ python -m model.sample --config config/1m_prototype.yaml --prompt "once upon a t
 # 4. Serve the OpenAI-compatible API (demo backend until a real checkpoint exists)
 uvicorn server.app:app --reload
 
-# 5. Open the web client
-#    open app/web/index.html directly, or deploy it (see app/web/README.md)
+# 5. Open the web client — live at
+#    https://samratbarman1013-commits.github.io/transformer/ (or open app/web/index.html)
 ```
 
 ## Repository layout

@@ -12,11 +12,12 @@ from __future__ import annotations
 import datetime
 import json
 import re
+from collections.abc import Iterator
 from dataclasses import dataclass
-from typing import Iterator
+
+from tools.registry import ToolRegistry
 
 from .schemas import ChatMessage
-from tools.registry import ToolRegistry
 
 MAX_ITERATIONS = 4
 
@@ -111,7 +112,8 @@ def run_agent(
 ) -> Iterator[AgentEvent]:
     """Run the plan -> tool call -> observe -> respond loop, streaming events."""
     system = SYSTEM_PROMPT_TEMPLATE.format(
-        date=datetime.date.today().isoformat(), tools=registry.specs_json() if tools_enabled else "(none)"
+        date=datetime.datetime.now(tz=datetime.UTC).date().isoformat(),
+        tools=registry.specs_json() if tools_enabled else "(none)",
     )
     conversation = [ChatMessage(role="system", content=system)] + list(messages)
 

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Union
+from typing import Any
 
 import yaml
 
@@ -47,7 +47,7 @@ class ExperimentConfig:
     train: TrainConfig = field(default_factory=TrainConfig)
 
     @staticmethod
-    def load(path: Union[str, Path]) -> "ExperimentConfig":
+    def load(path: str | Path) -> ExperimentConfig:
         raw: dict[str, Any] = yaml.safe_load(Path(path).read_text()) or {}
         model = ModelConfig(**raw.get("model", {}))
         train = TrainConfig(**raw.get("train", {}))
@@ -56,7 +56,7 @@ class ExperimentConfig:
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
-    def save(self, path: Union[str, Path]) -> None:
+    def save(self, path: str | Path) -> None:
         Path(path).write_text(yaml.safe_dump(self.to_dict(), sort_keys=False))
 
 

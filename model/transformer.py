@@ -9,11 +9,9 @@ embedding parameters and regularizes small models.
 """
 from __future__ import annotations
 
-import math
-
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
+from torch import nn
 
 from .config import ModelConfig
 
@@ -71,13 +69,13 @@ class GPT(nn.Module):
         super().__init__()
         self.cfg = cfg
         self.transformer = nn.ModuleDict(
-            dict(
-                wte=nn.Embedding(cfg.vocab_size, cfg.n_embd),
-                wpe=nn.Embedding(cfg.block_size, cfg.n_embd),
-                drop=nn.Dropout(cfg.dropout),
-                h=nn.ModuleList([Block(cfg) for _ in range(cfg.n_layer)]),
-                ln_f=nn.LayerNorm(cfg.n_embd, bias=cfg.bias),
-            )
+            {
+                "wte": nn.Embedding(cfg.vocab_size, cfg.n_embd),
+                "wpe": nn.Embedding(cfg.block_size, cfg.n_embd),
+                "drop": nn.Dropout(cfg.dropout),
+                "h": nn.ModuleList([Block(cfg) for _ in range(cfg.n_layer)]),
+                "ln_f": nn.LayerNorm(cfg.n_embd, bias=cfg.bias),
+            }
         )
         self.lm_head = nn.Linear(cfg.n_embd, cfg.vocab_size, bias=False)
         # Weight tying: the output projection shares storage with the input embedding.
